@@ -1,0 +1,3 @@
+0.2.3
+
+ * fix problems with multigroup classifiers: advantage calculated incorrectly, and would error if classifier didn't predict full range of responses
