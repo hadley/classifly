@@ -1,3 +1,12 @@
-0.2.3
+Version 0.2.4
+---------------------------------------------------------------------
+
+ * boundary points stored as explicit .BOUNDARY variable
+ * non-points excluded AND shadowed
+
+
+
+Version 0.2.3
+---------------------------------------------------------------------
 
  * fix problems with multigroup classifiers: advantage calculated incorrectly, and would error if classifier didn't predict full range of responses

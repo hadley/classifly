@@ -1,8 +1,8 @@
 Package: classifly
 Type: Package
 Title: Explore classification models in high dimensions
-Version: 0.2.3
-Date: 2007-03-13
+Version: 0.2.4
+Date: 2008-03-11
 Depends: rggobi, rpart, MASS, nnet, class, e1071, reshape
 Suggests: randomForest
 Author: Hadley Wickham <h.wickham@gmail.com>

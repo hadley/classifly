@@ -76,9 +76,16 @@ explore <- function(model, data, n=10000, method="nonaligned", advantage=TRUE, .
 	actual <- data[,c(v$predictor, v$response)]
 	actual[[".TYPE"]] <- factor("actual")
 	
+	
 	data <- rbind.fill(grid, actual)
+	
+	boundary <- quantile(data[[".ADVANTAGE"]], 0.1, na.rm=TRUE)
+	
+	data$.BOUNDARY <- !is.na(data[[".ADVANTAGE"]]) & data[[".ADVANTAGE"]] > boundary
+	
 	class(data) <- c("classifly", class(data))
 	attr(data, "variables") <- v
+	attr(data, "boundary") <- boundary
 	data
 }
 
@@ -94,6 +101,7 @@ print.classifly <- function(x, ...) {
 	d <- g[1]
 	glyph_colour(d) <- as.numeric(x[[v$response]]) + 1
 	glyph_type(d) <- ifelse(x[[".TYPE"]] == "simulated", 1, 6)
-	excluded(d) <- !is.na(x[[".ADVANTAGE"]]) & x[[".ADVANTAGE"]] > quantile(x[[".ADVANTAGE"]], 0.1, na.rm=TRUE)
+	shadowed(d) <- x$.BOUNDARY
+	excluded(d) <- x$.BOUNDARY
 	invisible(d)	
 }
