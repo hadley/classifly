@@ -24,7 +24,7 @@ simvar <- function(x, n=10, method="grid") UseMethod("simvar")
 simvar.factor <- function(x, n=10, method="grid") {
 	switch(method,
 		random = x[sample(length(x), n, replace=TRUE)],
-		factor(levels(x), levels=levels(x)),
+		factor(levels(x), levels=levels(x))
 	)
 }
 
@@ -32,7 +32,7 @@ simvar.numeric <- function(x, n=10, method="grid") {
 	rng <- range(x)
 	switch(method,
 		random = runif(n, rng[1], rng[2]),
-		seq(rng[1], rng[2], length=n),
+		seq(rng[1], rng[2], length=n)
 	)
 } 
 
