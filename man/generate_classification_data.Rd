@@ -1,0 +1,37 @@
+\name{generate_classification_data}
+\alias{generate_classification_data}
+\title{Generate classification data.}
+\usage{generate_classification_data(model, data, n, method,
+    advantage)}
+
+\description{
+  Generate classification data.
+}
+
+\details{
+  Given a model, this function generates points within the
+  range of the data, classifies them, and attempts to
+  locate boundaries by looking at advantage.
+
+  If posterior probabilities of classification are
+  available, then the \code{\link{advantage}} will be
+  calculated directly.  If not, \code{\link{knn}} is used
+  calculate the advantage based on the number of
+  neighbouring points that share the same classification.
+  Because knn is $O(n^2)$ this method is rather slow for
+  large (>20,000 say) data sets.
+
+  By default, the boundary points are identified as those
+  below the 5th-percentile for advantage.
+}
+\value{data.frame of classified data}
+\keyword{datagen}
+\arguments{
+  \item{model}{classification model}
+  \item{data}{data set used in model}
+  \item{n}{number of points to generate}
+  \item{method}{method to use, currently either grid (an evenly spaced grid),
+random (uniform random distribution across cube), or nonaligned (grid +
+some random peturbationb)}
+  \item{advantage}{if \code{TRUE}, compute advantage, otherwise don't}
+}
