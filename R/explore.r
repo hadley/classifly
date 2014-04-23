@@ -119,7 +119,7 @@ print.classifly <- function(x, ...) {
     return(invisible())
   }
 
-	if (!require("rggobi", quiet=TRUE))
+	if (!require("rggobi", quietly=TRUE))
     stop("rggobi required to visualise classifications in GGobi.")
 
 	v <- attr(x, "variables")

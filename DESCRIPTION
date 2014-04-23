@@ -15,11 +15,11 @@ Version: 0.4
 Imports:
     class,
     stats,
-    rpart,
     reshape,
     plyr
 Suggests:
-    e1071
+    e1071,
+    rggobi
 License: MIT + file LICENSE
 LazyData: true
 Roxygen: list(wrap = FALSE)
