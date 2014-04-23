@@ -1,26 +1,25 @@
 #' Simulate observations from a vector
-#' 
+#'
 #' Given a vector of data this function will simulate
-#' data that could have come from that vector. 
-#' 
+#' data that could have come from that vector.
+#'
 #' There are three methods to choose from:
 #'
 #' \itemize{
 #' 	\item nonaligned (default): grid + some random peturbation
-#' 	\item grid: grid of evenly spaced observations.  If a factor, 
+#' 	\item grid: grid of evenly spaced observations.  If a factor,
 #' 		all levels in a factor will be used, regardless of n
 #' 	\item random: a random uniform sample from the range of the variable
 #' }
-#' 
+#'
 #' @param x data vector
 #' @param n desired number of points (will not always be achieved)
 #' @param method grid simulation method.  See details.
 #' @export
-#' @S3method simvar factor
-#' @S3method simvar numeric
-#' @keywords datagen 
+#' @keywords datagen
 simvar <- function(x, n=10, method="grid") UseMethod("simvar")
 
+#' @export
 simvar.factor <- function(x, n=10, method="grid") {
 	switch(method,
 		random = x[sample(length(x), n, replace=TRUE)],
@@ -28,23 +27,24 @@ simvar.factor <- function(x, n=10, method="grid") {
 	)
 }
 
+#' @export
 simvar.numeric <- function(x, n=10, method="grid") {
 	rng <- range(x)
 	switch(method,
 		random = runif(n, rng[1], rng[2]),
 		seq(rng[1], rng[2], length=n)
 	)
-} 
+}
 
 #' Generate new data from a data frame.
-#' 
-#' This method generates new data that fills the range of 
+#'
+#' This method generates new data that fills the range of
 #' the supplied datasets.
-#' 
+#'
 #' @param data data frame
 #' @param n desired number of new observations
 #' @param method method to use, see \code{\link{simvar}}
-#' @keywords datagen 
+#' @keywords datagen
 generate_data <- function(data, n=10000, method="grid") {
 	if (method != "random") {
 		n <- floor(n ^ (1/ncol(data)))

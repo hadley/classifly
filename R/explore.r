@@ -1,28 +1,28 @@
 #' Classifly provides a convenient method to fit a classification function
 #' and then explore the results in the original high dimensional space.
-#' 
+#'
 #' This is a convenient function to fit a classification function and
 #' then explore the results using GGobi.  You can also do this in two
 #' separate steps using the classification function and then
 #' \code{\link{explore}}.
-#' 
+#'
 #' By default in GGobi, points that are not on the boundary (ie. that have an
 #' advantage greater than the 5% percentile) are hidden.  To show them, switch
 #' to brush mode and choose include shadowed points from the brush menu on
-#' the plot window.  You can then brush them yourself to explore how the 
+#' the plot window.  You can then brush them yourself to explore how the
 #' certainty of classification varies throughout the space
-#' 
+#'
 #' Special notes:
-#' 
+#'
 #' \itemize{
 #' 	\item You should make sure the response variable is a factor
 #' 	\item For SVM, make sure to include \code{probability = TRUE} in the
 #'       arguments to \code{classifly}
-#' 
+#'
 #' }
-#' 
+#'
 #' @param data Data set use for classification
-#' @param model Classification formula, usually of the form 
+#' @param model Classification formula, usually of the form
 #'   \code{response ~ predictors}
 #' @param classifier Function to use for the classification, eg.
 #'    \code{\link[MASS]{lda}}
@@ -37,28 +37,28 @@
 #' @param method method to simulate points: grid, random or nonaligned
 #'    (default).  See \code{\link{simvar}} for more details on the methods
 #'    used.
-#' @param type type of scaling to apply to data.  Defaults to commmon range. 
+#' @param type type of scaling to apply to data.  Defaults to commmon range.
 #'   See \code{\link[reshape]{rescaler}} for more details.
 #' @aliases classifly package-classifly
 #' @seealso \code{\link{explore}}, \url{http://had.co.nz/classifly}
-#' @keywords dynamic 
+#' @keywords dynamic
 #' @export
 #' @examples
 #' classifly(kyphosis, Kyphosis ~ . , lda)
-#' classifly(kyphosis, Kyphosis ~ poly(Age,2) + poly(Number,2) + 
+#' classifly(kyphosis, Kyphosis ~ poly(Age,2) + poly(Number,2) +
 #'   poly(Start,2) , lda)
 #' classifly(kyphosis, Kyphosis ~ . , qda)
 #' classifly(kyphosis, Kyphosis ~ . , rpart)
 #' classifly(kyphosis, Kyphosis ~ . , knnf, k=3)
 #' classifly(kyphosis, Kyphosis ~ . , glm, family="binomial")
-#' 
+#'
 #' classifly(kyphosis, Kyphosis ~ . , svm, probability=TRUE)
 #' classifly(kyphosis, Kyphosis ~ . , svm, probability=TRUE, kernel="linear")
 #' classifly(kyphosis, Kyphosis ~ . , best.svm, probability=TRUE,
 #'    kernel="linear")
 #'
 #' # Also can use explore directorly
-#' bsvm <- best.svm(Species~., data = iris, gamma = 2^(-1:1), 
+#' bsvm <- best.svm(Species~., data = iris, gamma = 2^(-1:1),
 #'   cost = 2^(2:+ 4), probability=TRUE)
 #' explore(bsvm, iris)
 classifly <- function(data, model, classifier, ..., n=10000, method="nonaligned", type="range") {
@@ -68,14 +68,14 @@ classifly <- function(data, model, classifier, ..., n=10000, method="nonaligned"
 }
 
 #' Default method for exploring objects
-#' 
+#'
 #' The default method currently works for classification
 #' functions.
-#' 
-#' It generates a data set filling the design space, finds 
-#' class boundaries (if desired) and then displays in a new 
+#'
+#' It generates a data set filling the design space, finds
+#' class boundaries (if desired) and then displays in a new
 #' ggobi instance.
-#' 
+#'
 #' @param model classification object
 #' @param data data set used with classifier
 #' @param n number of points to generate when searching for boundaries
@@ -88,9 +88,8 @@ classifly <- function(data, model, classifier, ..., n=10000, method="nonaligned"
 #'   that contains all the simulated and true data.  This can be saved and
 #'   then printed later to open with rggobi.
 #' @export
-#' @S3method print classifly
 #' @examples
-#' bsvm <- best.svm(Species~., data = iris, gamma = 2^(-1:1), 
+#' bsvm <- best.svm(Species~., data = iris, gamma = 2^(-1:1),
 #'   cost = 2^(2:+ 4), probability=TRUE)
 #' explore(bsvm, iris)
 explore <- function(model, data, n=10000, method="nonaligned", advantage=TRUE, ...) {
@@ -98,38 +97,39 @@ explore <- function(model, data, n=10000, method="nonaligned", advantage=TRUE, .
 	grid <- generate_classification_data(model, data, n=n, method=method, advantage=TRUE)
 	actual <- data[,c(v$predictor, v$response)]
 	actual[[".TYPE"]] <- factor("actual")
-	
-	
+
+
 	data <- rbind.fill(grid, actual)
-	
+
 	boundary <- quantile(data[[".ADVANTAGE"]], 0.1, na.rm=TRUE)
-	
+
 	data$.BOUNDARY <- !is.na(data[[".ADVANTAGE"]]) & data[[".ADVANTAGE"]] > boundary
-	
+
 	class(data) <- c("classifly", class(data))
 	attr(data, "variables") <- v
 	attr(data, "boundary") <- boundary
 	data
 }
 
+#' @export
 print.classifly <- function(x, ...) {
   if (!interactive()) {
     message("Skipping interactive exploration")
     return(invisible())
   }
 
-	if (!require("rggobi", quiet=TRUE)) 
+	if (!require("rggobi", quiet=TRUE))
     stop("rggobi required to visualise classifications in GGobi.")
 
 	v <- attr(x, "variables")
 	g <- ggobi(x)
-	
-  
-	
+
+
+
 	d <- g[1]
 	glyph_colour(d) <- as.numeric(x[[v$response]]) + 1
 	glyph_type(d) <- ifelse(x[[".TYPE"]] == "simulated", 1, 6)
 	shadowed(d) <- x$.BOUNDARY
 	excluded(d) <- x$.BOUNDARY
-	invisible(d)	
+	invisible(d)
 }
