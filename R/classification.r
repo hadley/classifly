@@ -34,7 +34,7 @@ generate_classification_data <- function(model, data, n, method, advantage) {
 		df[[v$response]] <- classify(model, df)
 		if (advantage) {
 			v <- variables(model)
-			pred <- reshape::rescaler(df[, v$predictors], type="range")
+			pred <- rescaler(df[, v$predictors], type="range")
 			a <- class::knn(pred, pred, df[,v$response], prob=T, k=5)
 
 			df[[".ADVANTAGE"]] <- attr(a, "prob")

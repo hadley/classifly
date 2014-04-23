@@ -57,6 +57,8 @@ Special notes:
 }
 }
 \examples{
+data(kyphosis, package = "rpart")
+library(MASS)
 classifly(kyphosis, Kyphosis ~ . , lda)
 classifly(kyphosis, Kyphosis ~ poly(Age,2) + poly(Number,2) +
   poly(Start,2) , lda)
@@ -71,9 +73,11 @@ classifly(kyphosis, Kyphosis ~ . , best.svm, probability=TRUE,
    kernel="linear")
 
 # Also can use explore directorly
+if (require("e1071")) {
 bsvm <- best.svm(Species~., data = iris, gamma = 2^(-1:1),
   cost = 2^(2:+ 4), probability=TRUE)
 explore(bsvm, iris)
+}
 }
 \seealso{
 \code{\link{explore}}, \url{http://had.co.nz/classifly}

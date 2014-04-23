@@ -44,6 +44,8 @@
 #' @keywords dynamic
 #' @export
 #' @examples
+#' data(kyphosis, package = "rpart")
+#' library(MASS)
 #' classifly(kyphosis, Kyphosis ~ . , lda)
 #' classifly(kyphosis, Kyphosis ~ poly(Age,2) + poly(Number,2) +
 #'   poly(Start,2) , lda)
@@ -58,11 +60,13 @@
 #'    kernel="linear")
 #'
 #' # Also can use explore directorly
+#' if (require("e1071")) {
 #' bsvm <- best.svm(Species~., data = iris, gamma = 2^(-1:1),
 #'   cost = 2^(2:+ 4), probability=TRUE)
 #' explore(bsvm, iris)
+#' }
 classifly <- function(data, model, classifier, ..., n=10000, method="nonaligned", type="range") {
-  data <- reshape::rescaler(data, type=type)
+  data <- rescaler(data, type=type)
 	classifly <- classifier(model, data=data, ...)
 	explore(classifly, data, n=n, method=method, advantage=TRUE)
 }

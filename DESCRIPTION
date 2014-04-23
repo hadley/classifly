@@ -15,7 +15,6 @@ Version: 0.4
 Imports:
     class,
     stats,
-    reshape,
     plyr
 Suggests:
     e1071,
