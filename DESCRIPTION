@@ -2,8 +2,16 @@ Package: classifly
 Type: Package
 Title: Explore classification models in high dimensions
 Version: 0.3
-Depends: rpart, MASS, nnet, class, e1071, reshape
-Suggests: randomForest, rggobi
+Depends:
+    rpart,
+    MASS,
+    nnet,
+    class,
+    e1071,
+    reshape
+Suggests:
+    randomForest,
+    rggobi
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description: Given $p$-dimensional training data containing
@@ -17,4 +25,4 @@ Description: Given $p$-dimensional training data containing
 URL: http://had.co.nz/classifly
 License: MIT
 LazyData: true
-Collate: 'classification.r' 'data.r' 'explore.r' 'knn.r'
+Roxygen: list(wrap = FALSE)
