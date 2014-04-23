@@ -14,5 +14,6 @@ knnf <- function(formula, data, k=2) {
 #' @export
 classify.knnf <- function(model, data, ...) {
 	v <- variables(model)
-	knn(model$data[,v$predictors], data[,v$predictors], model$data[, v$response], k=model$k)
+	class::knn(model$data[,v$predictors], data[,v$predictors],
+    model$data[, v$response], k = model$k)
 }

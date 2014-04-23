@@ -34,9 +34,11 @@ class boundaries (if desired) and then displays in a new
 ggobi instance.
 }
 \examples{
+if (require("e1071")) {
 bsvm <- best.svm(Species~., data = iris, gamma = 2^(-1:1),
   cost = 2^(2:+ 4), probability=TRUE)
 explore(bsvm, iris)
+}
 }
 \seealso{
 \code{\link{generate_classification_data}},

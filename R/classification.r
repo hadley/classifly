@@ -65,8 +65,10 @@ generate_classification_data <- function(model, data, n, method, advantage) {
 #' @export
 classify <- function(model, data, ...) UseMethod("classify", model)
 #' @export
-classify.rpart <- function(model, data, ...)
-  predict(model, data, type="class")
+classify.rpart <- function(model, data, ...) {
+  stats::predict(model, data, type="class")
+}
+
 
 #' Extract posterior group probabilities
 #'
@@ -81,21 +83,27 @@ posterior <- function(model, data) UseMethod("posterior", model)
 #' @export
 posterior.default <- function(model, data) NULL
 #' @export
-posterior.lda <- function(model, data) predict(model, data)$posterior
+posterior.lda <- function(model, data) {
+  stats::predict(model, data)$posterior
+}
 #' @export
 posterior.qda <- posterior.lda
 #' @export
-posterior.randomForest <- function(model, data) predict(model, data, type="prob")
+posterior.randomForest <- function(model, data) {
+  stats::predict(model, data, type="prob")
+}
 #' @export
-posterior.svm <- function(model, data) attr(predict(model, data, probability = TRUE), "probabilities")
+posterior.svm <- function(model, data) {
+  attr(stats::predict(model, data, probability = TRUE), "probabilities")
+}
 #' @export
 posterior.nnet <- function(model, data) {
-	probs <- predict(model, data)
+	probs <- stats::predict(model, data)
 	cbind(probs, 1 - rowSums(probs))
 }
 #' @export
 posterior.glm <- function(model, data) {
-	probs <- predict(model, data, type="response")
+	probs <- stats::predict(model, data, type="response")
 	probs <- cbind(probs, 1 - probs)
 	colnames(probs) <- levels(model$model[[variables(model)$response]])
 	probs

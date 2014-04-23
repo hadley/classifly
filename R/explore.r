@@ -62,7 +62,7 @@
 #'   cost = 2^(2:+ 4), probability=TRUE)
 #' explore(bsvm, iris)
 classifly <- function(data, model, classifier, ..., n=10000, method="nonaligned", type="range") {
-  data <- rescaler(data, type=type)
+  data <- reshape::rescaler(data, type=type)
 	classifly <- classifier(model, data=data, ...)
 	explore(classifly, data, n=n, method=method, advantage=TRUE)
 }
@@ -89,19 +89,20 @@ classifly <- function(data, model, classifier, ..., n=10000, method="nonaligned"
 #'   then printed later to open with rggobi.
 #' @export
 #' @examples
+#' if (require("e1071")) {
 #' bsvm <- best.svm(Species~., data = iris, gamma = 2^(-1:1),
 #'   cost = 2^(2:+ 4), probability=TRUE)
 #' explore(bsvm, iris)
+#' }
 explore <- function(model, data, n=10000, method="nonaligned", advantage=TRUE, ...) {
 	v <- variables(model)
 	grid <- generate_classification_data(model, data, n=n, method=method, advantage=TRUE)
 	actual <- data[,c(v$predictor, v$response)]
 	actual[[".TYPE"]] <- factor("actual")
 
+	data <- plyr::rbind.fill(grid, actual)
 
-	data <- rbind.fill(grid, actual)
-
-	boundary <- quantile(data[[".ADVANTAGE"]], 0.1, na.rm=TRUE)
+	boundary <- stats::quantile(data[[".ADVANTAGE"]], 0.1, na.rm=TRUE)
 
 	data$.BOUNDARY <- !is.na(data[[".ADVANTAGE"]]) & data[[".ADVANTAGE"]] > boundary
 
@@ -122,14 +123,12 @@ print.classifly <- function(x, ...) {
     stop("rggobi required to visualise classifications in GGobi.")
 
 	v <- attr(x, "variables")
-	g <- ggobi(x)
-
-
+	g <- rggobi::ggobi(x)
 
 	d <- g[1]
-	glyph_colour(d) <- as.numeric(x[[v$response]]) + 1
-	glyph_type(d) <- ifelse(x[[".TYPE"]] == "simulated", 1, 6)
-	shadowed(d) <- x$.BOUNDARY
-	excluded(d) <- x$.BOUNDARY
+  rggobi::glyph_colour(d) <- as.numeric(x[[v$response]]) + 1
+  rggobi::glyph_type(d) <- ifelse(x[[".TYPE"]] == "simulated", 1, 6)
+  rggobi::shadowed(d) <- x$.BOUNDARY
+  rggobi::excluded(d) <- x$.BOUNDARY
 	invisible(d)
 }

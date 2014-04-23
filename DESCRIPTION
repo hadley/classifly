@@ -12,16 +12,14 @@ Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 URL: http://had.co.nz/classifly
 Version: 0.4
-Depends:
-    rpart,
-    MASS,
-    nnet,
+Imports:
     class,
-    e1071,
-    reshape
+    stats,
+    rpart,
+    reshape,
+    plyr
 Suggests:
-    randomForest,
-    rggobi
+    e1071
 License: MIT
 LazyData: true
 Roxygen: list(wrap = FALSE)
