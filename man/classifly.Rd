@@ -60,23 +60,25 @@ Special notes:
 data(kyphosis, package = "rpart")
 library(MASS)
 classifly(kyphosis, Kyphosis ~ . , lda)
-classifly(kyphosis, Kyphosis ~ poly(Age,2) + poly(Number,2) +
-  poly(Start,2) , lda)
 classifly(kyphosis, Kyphosis ~ . , qda)
-classifly(kyphosis, Kyphosis ~ . , rpart)
-classifly(kyphosis, Kyphosis ~ . , knnf, k=3)
 classifly(kyphosis, Kyphosis ~ . , glm, family="binomial")
+classifly(kyphosis, Kyphosis ~ . , knnf, k=3)
 
+library(rpart)
+classifly(kyphosis, Kyphosis ~ . , rpart)
+
+\donttest{
+if (require("e1071")) {
 classifly(kyphosis, Kyphosis ~ . , svm, probability=TRUE)
 classifly(kyphosis, Kyphosis ~ . , svm, probability=TRUE, kernel="linear")
 classifly(kyphosis, Kyphosis ~ . , best.svm, probability=TRUE,
    kernel="linear")
 
 # Also can use explore directorly
-if (require("e1071")) {
 bsvm <- best.svm(Species~., data = iris, gamma = 2^(-1:1),
   cost = 2^(2:+ 4), probability=TRUE)
 explore(bsvm, iris)
+}
 }
 }
 \seealso{

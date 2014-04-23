@@ -18,7 +18,9 @@ Imports:
     plyr
 Suggests:
     e1071,
-    rggobi
+    rggobi,
+    rpart,
+    MASS
 License: MIT + file LICENSE
 LazyData: true
 Roxygen: list(wrap = FALSE)

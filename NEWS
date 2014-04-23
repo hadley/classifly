@@ -1,1 +1,4 @@
 # classifly 0.4
+
+* Simplified dependencies and structured better with imports instead
+  of depends.
