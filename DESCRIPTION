@@ -11,7 +11,7 @@ Description: Given $p$-dimensional training data containing
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 URL: http://had.co.nz/classifly
-Version: 0.4
+Version: 0.4.0.99
 Imports:
     class,
     stats,
