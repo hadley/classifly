@@ -1,4 +1,6 @@
-# classifly 0.4.0.99
+# classifly 0.4.1
+
+* R CMD checks fixes
 
 # classifly 0.4
 
