@@ -1,6 +1,6 @@
 Package: classifly
 Title: Explore Classification Models in High Dimensions
-Version: 0.4.1
+Version: 0.4.1.9000
 Author: Hadley Wickham <h.wickham@gmail.com>
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
 Description: Given $p$-dimensional training data containing $d$ groups

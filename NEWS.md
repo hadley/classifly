@@ -1,3 +1,5 @@
+# classifly (development version)
+
 # classifly 0.4.1
 
 * R CMD checks fixes
