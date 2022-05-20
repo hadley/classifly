@@ -31,7 +31,7 @@ simvar.factor <- function(x, n=10, method="grid") {
 simvar.numeric <- function(x, n=10, method="grid") {
 	rng <- range(x)
 	switch(method,
-		random = runif(n, rng[1], rng[2]),
+		random = stats::runif(n, rng[1], rng[2]),
 		seq(rng[1], rng[2], length=n)
 	)
 }
@@ -52,7 +52,7 @@ generate_data <- function(data, n=10000, method="grid") {
 		if (method == "nonaligned") {
 			cont <- !sapply(df, is.factor)
 			ranges <- lapply(df[,cont], function(x) diff(range(x)))
-			df[,cont] <- df[,cont] + do.call(cbind, lapply(ranges, function(rng) runif(-rng/(2*n), rng/(2*n), n=nrow(df))))
+			df[,cont] <- df[,cont] + do.call(cbind, lapply(ranges, function(rng) stats::runif(-rng/(2*n), rng/(2*n), n=nrow(df))))
 		}
 		df
 	} else {

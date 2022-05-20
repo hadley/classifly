@@ -7,7 +7,7 @@
 #' @keywords classif
 #' @export
 knnf <- function(formula, data, k=2) {
-	structure(list(terms=terms(formula, data=data), data=data, k=k),
+	structure(list(terms=stats::terms(formula, data=data), data=data, k=k),
 	   class="knnf")
 }
 

@@ -5,8 +5,8 @@ rescaler.default <- function(x, type="sd", ...) {
   switch(type,
     rank = rank(x, ...),
     var = ,
-    sd = (x - mean(x, na.rm=TRUE)) / sd(x, na.rm=TRUE),
-    robust = (x - median(x, na.rm=TRUE)) / mad(x, na.rm=TRUE),
+    sd = (x - mean(x, na.rm=TRUE)) / stats::sd(x, na.rm=TRUE),
+    robust = (x - stats::median(x, na.rm=TRUE)) / stats::mad(x, na.rm=TRUE),
     I = x,
     range = (x - min(x, na.rm=TRUE)) / diff(range(x, na.rm=TRUE))
   )
