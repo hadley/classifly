@@ -125,16 +125,5 @@ print.classifly <- function(x, ...) {
     return(invisible())
   }
 
-	if (!require("rggobi", quietly=TRUE))
-    stop("rggobi required to visualise classifications in GGobi.")
-
-	v <- attr(x, "variables")
-	g <- rggobi::ggobi(x)
-
-	d <- g[1]
-  rggobi::glyph_colour(d) <- as.numeric(x[[v$response]]) + 1
-  rggobi::glyph_type(d) <- ifelse(x[[".TYPE"]] == "simulated", 1, 6)
-  rggobi::shadowed(d) <- x$.BOUNDARY
-  rggobi::excluded(d) <- x$.BOUNDARY
-	invisible(d)
+  stop("interactive visualisation no longer supported")
 }
