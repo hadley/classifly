@@ -50,7 +50,7 @@ separate steps using the classification function and then
 }
 \details{
 By default in GGobi, points that are not on the boundary (ie. that have an
-advantage greater than the 5% percentile) are hidden.  To show them, switch
+advantage greater than the 5\% percentile) are hidden.  To show them, switch
 to brush mode and choose include shadowed points from the brush menu on
 the plot window.  You can then brush them yourself to explore how the
 certainty of classification varies throughout the space
@@ -58,9 +58,9 @@ certainty of classification varies throughout the space
 Special notes:
 
 \itemize{
-	\item You should make sure the response variable is a factor
-	\item For SVM, make sure to include \code{probability = TRUE} in the
-      arguments to \code{classifly}
+\item You should make sure the response variable is a factor
+\item For SVM, make sure to include \code{probability = TRUE} in the
+arguments to \code{classifly}
 
 }
 }

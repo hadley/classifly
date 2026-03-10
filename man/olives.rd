@@ -18,7 +18,7 @@ Liguria).
 }
 \references{
 Forina, M. and Armanino, C. and Lanteri, S. and
-  Tiscornia, E., Classification of olive oils from their fatty acid
-  composition, 1983, in Food Research and Data Analysis, edited by
-  Martens, H. and Russwurm Jr, H, pages 189-214.
+Tiscornia, E., Classification of olive oils from their fatty acid
+composition, 1983, in Food Research and Data Analysis, edited by
+Martens, H. and Russwurm Jr, H, pages 189-214.
 }

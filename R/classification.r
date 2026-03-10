@@ -5,10 +5,10 @@
 #' by looking at advantage.
 #'
 #' If posterior probabilities of classification are available, then the
-#' \code{\link{advantage}} will be calculated directly.  If not,
-#' \code{\link{knn}} is used calculate the advantage based on the number of
+#' [advantage()] will be calculated directly.  If not,
+#' [knn()] is used calculate the advantage based on the number of
 #' neighbouring points that share the same classification.  Because knn is
-#' $O(n^2)$ this method is rather slow for large (>20,000 say) data sets.
+#' O(n^2) this method is rather slow for large (>20,000 say) data sets.
 #'
 #' By default, the boundary points are identified
 #' as those below the 5th-percentile for advantage.
@@ -26,7 +26,11 @@
 generate_classification_data <- function(model, data, n, method, advantage) {
 	v <- variables(model)
 
-	df <- generate_data(data[, v$predictors, drop=FALSE], n=n, method=method)
+	df <- generate_data(
+		data[, v$predictors, drop = FALSE],
+		n = n,
+		method = method
+	)
 	post <- posterior(model, df)
 
 	df[[".ADVANTAGE"]] <- NA
@@ -34,15 +38,20 @@ generate_classification_data <- function(model, data, n, method, advantage) {
 		df[[v$response]] <- classify(model, df)
 		if (advantage) {
 			v <- variables(model)
-			pred <- rescaler(df[, v$predictors], type="range")
-			a <- class::knn(pred, pred, df[,v$response], prob=T, k=5)
+			pred <- rescaler(df[, v$predictors], type = "range")
+			a <- class::knn(pred, pred, df[, v$response], prob = T, k = 5)
 
 			df[[".ADVANTAGE"]] <- attr(a, "prob")
-
 		}
 	} else {
-		df[[v$response]] <- factor(max.col(post), levels=1:ncol(post), labels=colnames(post))
-		if (advantage) df[[".ADVANTAGE"]] <- advantage(post)
+		df[[v$response]] <- factor(
+			max.col(post),
+			levels = 1:ncol(post),
+			labels = colnames(post)
+		)
+		if (advantage) {
+			df[[".ADVANTAGE"]] <- advantage(post)
+		}
 		df <- cbind(df, post)
 	}
 	df[[".TYPE"]] <- factor("simulated")
@@ -66,7 +75,7 @@ generate_classification_data <- function(model, data, n, method, advantage) {
 classify <- function(model, data, ...) UseMethod("classify", model)
 #' @export
 classify.rpart <- function(model, data, ...) {
-  stats::predict(model, data, type="class")
+	stats::predict(model, data, type = "class")
 }
 
 
@@ -84,17 +93,17 @@ posterior <- function(model, data) UseMethod("posterior", model)
 posterior.default <- function(model, data) NULL
 #' @export
 posterior.lda <- function(model, data) {
-  stats::predict(model, data)$posterior
+	stats::predict(model, data)$posterior
 }
 #' @export
 posterior.qda <- posterior.lda
 #' @export
 posterior.randomForest <- function(model, data) {
-  stats::predict(model, data, type="prob")
+	stats::predict(model, data, type = "prob")
 }
 #' @export
 posterior.svm <- function(model, data) {
-  attr(stats::predict(model, data, probability = TRUE), "probabilities")
+	attr(stats::predict(model, data, probability = TRUE), "probabilities")
 }
 #' @export
 posterior.nnet <- function(model, data) {
@@ -103,7 +112,7 @@ posterior.nnet <- function(model, data) {
 }
 #' @export
 posterior.glm <- function(model, data) {
-	probs <- stats::predict(model, data, type="response")
+	probs <- stats::predict(model, data, type = "response")
 	probs <- cbind(probs, 1 - probs)
 	colnames(probs) <- levels(model$model[[variables(model)$response]])
 	probs
@@ -119,7 +128,7 @@ posterior.glm <- function(model, data) {
 #' @keywords classif
 #' @export
 advantage <- function(post) {
-	apply(post, 1, function(x) -diff(x[order(x, decreasing=TRUE)[1:2]]))
+	apply(post, 1, function(x) -diff(x[order(x, decreasing = TRUE)[1:2]]))
 }
 
 #' Extract predictor and response variables for a model object.

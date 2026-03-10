@@ -29,10 +29,10 @@ by looking at advantage.
 }
 \details{
 If posterior probabilities of classification are available, then the
-\code{\link{advantage}} will be calculated directly.  If not,
-\code{\link{knn}} is used calculate the advantage based on the number of
+\code{\link[=advantage]{advantage()}} will be calculated directly.  If not,
+\code{\link[class:knn]{class::knn()}} is used calculate the advantage based on the number of
 neighbouring points that share the same classification.  Because knn is
-$O(n^2)$ this method is rather slow for large (>20,000 say) data sets.
+O(n^2) this method is rather slow for large (>20,000 say) data sets.
 
 By default, the boundary points are identified
 as those below the 5th-percentile for advantage.

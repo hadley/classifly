@@ -21,8 +21,8 @@ explore(model, data, n = 10000, method = "nonaligned", advantage = TRUE, ...)
 }
 \value{
 A \code{\link{invisible}} data frame of class \code{classifly}
-  that contains all the simulated and true data.  This can be saved and
-  then printed later to open with rggobi.
+that contains all the simulated and true data.  This can be saved and
+then printed later to open with rggobi.
 }
 \description{
 The default method currently works for classification
@@ -42,5 +42,5 @@ explore(bsvm, iris)
 }
 \seealso{
 \code{\link{generate_classification_data}},
-   \url{http://had.co.nz/classifly}
+\url{http://had.co.nz/classifly}
 }

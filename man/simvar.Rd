@@ -21,10 +21,10 @@ data that could have come from that vector.
 There are three methods to choose from:
 
 \itemize{
-	\item nonaligned (default): grid + some random peturbation
-	\item grid: grid of evenly spaced observations.  If a factor,
-		all levels in a factor will be used, regardless of n
-	\item random: a random uniform sample from the range of the variable
+\item nonaligned (default): grid + some random peturbation
+\item grid: grid of evenly spaced observations.  If a factor,
+all levels in a factor will be used, regardless of n
+\item random: a random uniform sample from the range of the variable
 }
 }
 \keyword{datagen}
