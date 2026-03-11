@@ -1,4 +1,6 @@
-# classifly (development version)
+# classifly 0.4.2
+
+* Fixes to documentation to get the package back on CRAN
 
 # classifly 0.4.1
 
