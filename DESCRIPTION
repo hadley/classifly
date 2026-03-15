@@ -2,7 +2,7 @@ Package: classifly
 Title: Explore Classification Models in High Dimensions
 Version: 0.4.2
 Author: Hadley Wickham <h.wickham@gmail.com>
-Maintainer: Hadley Wickham <h.wickham@gmail.com>
+Maintainer: Dianne Cook <visnut@gmail.com>
 Description: Given $p$-dimensional training data containing $d$ groups
     (the design space), a classification algorithm (classifier) predicts
     which group new data belongs to.  Generally the input to these

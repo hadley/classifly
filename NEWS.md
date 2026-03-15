@@ -1,6 +1,7 @@
 # classifly 0.4.2
 
 * Fixes to documentation to get the package back on CRAN
+* New maintainer
 
 # classifly 0.4.1
 
