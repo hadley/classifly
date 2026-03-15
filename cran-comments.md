@@ -7,4 +7,4 @@ Duration: 15.4s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
-Also checked on 
+Also checked using GitHub Actions, see https://github.com/hadley/classifly/actions/workflows/rhub.yaml
