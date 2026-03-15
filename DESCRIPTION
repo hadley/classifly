@@ -1,13 +1,19 @@
 Package: classifly
 Title: Explore Classification Models in High Dimensions
-Version: 0.4.2
-Author: Hadley Wickham <h.wickham@gmail.com>
-Maintainer: Dianne Cook <visnut@gmail.com>
+Version: 0.4.3
+Authors@R: c(person(given = "Hadley",
+                      family = "Wickham",
+                      role = "aut",
+                      email = "h.wickham@gmail.com"),
+               person(given = "Dianne",
+                      family = "Cook",
+                      role = "cre",
+                      email = "visnut@gmail.com"))
 Description: Given $p$-dimensional training data containing $d$ groups
     (the design space), a classification algorithm (classifier) predicts
     which group new data belongs to.  Generally the input to these
     algorithms is high dimensional, and the boundaries between groups will
-    be high dimensional and perhaps curvilinear or multi-faceted. This
+    be high dimensional and perhaps non-linear. This
     package implements methods for understanding the division of space
     between the groups.
 License: MIT + file LICENSE
