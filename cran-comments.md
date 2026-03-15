@@ -2,8 +2,8 @@ This fixes the problems that led to the package being removed from CRAN. The mai
 
 ## R CMD check results
 
-── R CMD check results ──────────────────────────────────────────── classifly 0.4.2 ────
-Duration: 15.4s
+── R CMD check results ──────────────────────────────────────────── classifly 0.4.3 ────
+Duration: 15.9s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 
